@@ -77,11 +77,17 @@ app.delete('/api/candidate/:id', (req, res) => {
 
 // Create a candidate
 app.post('/api/candidate', ({ body }, res) => {
-    const errors = inputCheck(body, 'first_name', 'last_name', 'industry_connected');
+    const errors = inputCheck(
+        body, 
+        'first_name', 
+        'last_name', 
+        'industry_connected'
+    );
     if(errors){
         res.status(400).json({ error: errors });
         return;
     }
+    
     const sql = `INSERT INTO candidates (first_name, last_name, industry_connected)
         VALUES (?,?,?)`;
     const params = [body.first_name, body.last_name, body.industry_connected];
